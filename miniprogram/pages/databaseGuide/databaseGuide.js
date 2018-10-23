@@ -70,69 +70,69 @@ Page({
   },
 
   onCounterInc: function() {
-    // const db = wx.cloud.database()
-    // const newCount = this.data.count + 1
-    // db.collection('counters').doc(this.data.counterId).update({
-    //   data: {
-    //     count: newCount
-    //   },
-    //   success: res => {
-    //     this.setData({
-    //       count: newCount
-    //     })
-    //   },
-    //   fail: err => {
-    //     icon: 'none',
-    //     console.error('[数据库] [更新记录] 失败：', err)
-    //   }
-    // })
+    const db = wx.cloud.database()
+    const newCount = this.data.count + 1
+    db.collection('counters').doc(this.data.counterId).update({
+      data: {
+        count: newCount
+      },
+      success: res => {
+        this.setData({
+          count: newCount
+        })
+      },
+      fail: err => {
+        icon: 'none',
+        console.error('[数据库] [更新记录] 失败：', err)
+      }
+    })
   },
 
   onCounterDec: function() {
-    // const db = wx.cloud.database()
-    // const newCount = this.data.count - 1
-    // db.collection('counters').doc(this.data.counterId).update({
-    //   data: {
-    //     count: newCount
-    //   },
-    //   success: res => {
-    //     this.setData({
-    //       count: newCount
-    //     })
-    //   },
-    //   fail: err => {
-    //     icon: 'none',
-    //     console.error('[数据库] [更新记录] 失败：', err)
-    //   }
-    // })
+    const db = wx.cloud.database()
+    const newCount = this.data.count - 1
+    db.collection('counters').doc(this.data.counterId).update({
+      data: {
+        count: newCount
+      },
+      success: res => {
+        this.setData({
+          count: newCount
+        })
+      },
+      fail: err => {
+        icon: 'none',
+        console.error('[数据库] [更新记录] 失败：', err)
+      }
+    })
   },
 
   onRemove: function() {
-    // if (this.data.counterId) {
-    //   const db = wx.cloud.database()
-    //   db.collection('counters').doc(this.data.counterId).remove({
-    //     success: res => {
-    //       wx.showToast({
-    //         title: '删除成功',
-    //       })
-    //       this.setData({
-    //         counterId: '',
-    //         count: null,
-    //       })
-    //     },
-    //     fail: err => {
-    //       wx.showToast({
-    //         icon: 'none',
-    //         title: '删除失败',
-    //       })
-    //       console.error('[数据库] [删除记录] 失败：', err)
-    //     }
-    //   })
-    // } else {
-    //   wx.showToast({
-    //     title: '无记录可删，请见创建一个记录',
-    //   })
-    // }
+    if (this.data.counterId) {
+      const db = wx.cloud.database()
+      db.collection('counters').doc(this.data.counterId).remove({
+        success: res => {
+          wx.showToast({
+            title: '删除成功',
+          })
+          this.setData({
+            counterId: '',
+            count: null,
+          })
+        },
+        fail: err => {
+          wx.showToast({
+            icon: 'none',
+            title: '删除失败',
+          })
+          console.error('[数据库] [删除记录] 失败：', err)
+        }
+      })
+    } else {
+      wx.showToast({
+        title: '无记录可删，请见创建一个记录',
+      })
+    }
   },
 
   nextStep: function () {

@@ -79,11 +79,12 @@ Page({
         wx.showLoading({
           title: '上传中',
         })
-
+        console.log(res)
         const filePath = res.tempFilePaths[0]
-        
+        console.log(filePath.split('.'))
+        let imageName = filePath.split('.')[filePath.split('.').length -2]
         // 上传图片
-        const cloudPath = 'my-image' + filePath.match(/\.[^.]+?$/)[0]
+        const cloudPath = imageName + filePath.match(/\.[^.]+?$/)[0]
         wx.cloud.uploadFile({
           cloudPath,
           filePath,
