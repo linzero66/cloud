@@ -9,7 +9,8 @@ Page({
     userInfo: {},
     logged: false,
     takeSession: false,
-    requestResult: ''
+    requestResult: '',
+    classic:null
   },
 
   onLoad: function() {
