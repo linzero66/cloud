@@ -51,7 +51,8 @@ Page({
     const db = wx.cloud.database()
     // 查询当前用户所有的 counters
     db.collection('counters').where({
-      _openid: this.data.openid
+      // _openid: this.data.openid
+      // _id: 'W86N_JL-scb2F6G9'
     }).get({
       success: res => {
         this.setData({

@@ -1,4 +1,6 @@
 //index.js
+import {ClassicModel} from '../../models/classic.js'
+let classic = new ClassicModel()
 const app = getApp()
 
 Page({
@@ -11,6 +13,13 @@ Page({
   },
 
   onLoad: function() {
+    classic.getLatest((res)=>{
+        console.log(res);
+        //数据更新(数据添加和更新)
+        this.setData({
+          classic:res
+        })
+    })
     if (!wx.cloud) {
       wx.redirectTo({
         url: '../chooseLib/chooseLib',
