@@ -31,7 +31,6 @@ Page({
         console.error('[数据库] [查询记录] 失败：', err)
       }
     })
-    
 
 
     // classic.getLatest((res)=>{
@@ -147,6 +146,7 @@ Page({
       }
     })
   },
+  //添加数据库记录
   addData:function(){
     const db = wx.cloud.database()
     db.collection('blink').add({
