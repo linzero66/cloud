@@ -100,6 +100,8 @@ Page({
         this.setData({
           count: newCount
         })
+        console.log(res);
+        
       },
       fail: err => {
         icon: 'none',

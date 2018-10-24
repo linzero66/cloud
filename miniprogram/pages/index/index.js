@@ -10,17 +10,37 @@ Page({
     logged: false,
     takeSession: false,
     requestResult: '',
-    classic:null
+    classicData:null
   },
 
   onLoad: function() {
-    classic.getLatest((res)=>{
-        console.log(res);
-        //数据更新(数据添加和更新)
+    const db = wx.cloud.database()
+   
+    db.collection('blink').orderBy('pubdate','esc').limit(1).get({
+      success: res => {
         this.setData({
-          classic:res
+          classicData: res.data[0]
         })
+        console.log('[数据库] [查询记录] 成功: ',res)
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
     })
+    
+
+
+    // classic.getLatest((res)=>{
+    //     console.log(res);
+    //     //数据更新(数据添加和更新)
+    //     this.setData({
+    //       classic:res
+    //     })
+    // })
     if (!wx.cloud) {
       wx.redirectTo({
         url: '../chooseLib/chooseLib',
@@ -127,5 +147,30 @@ Page({
       }
     })
   },
+  addData:function(){
+    const db = wx.cloud.database()
+    db.collection('blink').add({
+      data: {
+        content: "learn cloud database",
+        title: "李安<<饮食男女>>",
+        pubdate: new Date("2018-09-01"),
+        fav_nums: 20,
+        like_status: false
+      },
+      success: res => {
+        wx.showToast({
+          title: '新增记录成功',
+        })
+        console.log('[数据库] [新增记录] 成功，记录 _id: ', res._id)
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '新增记录失败'
+        })
+        console.error('[数据库] [新增记录] 失败：', err)
+      }
+    })
+  }
 
 })

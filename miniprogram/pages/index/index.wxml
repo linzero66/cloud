@@ -41,4 +41,9 @@
   </view>
 
 </view>
-<z-like />
+<view class="uploader-text" bindtap="addData">
+      <text>添加按钮</text>
+    </view>
+<z-like like="{{classicData.like_status}}"  count="{{classicData.fav_nums}}"   weeklyID="{{classicData._id}}"   />
+<!-- <image src="{{classicData.image}}" /> -->
+
