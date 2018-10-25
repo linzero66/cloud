@@ -10,13 +10,14 @@ Page({
     logged: false,
     takeSession: false,
     requestResult: '',
-    classicData:null
+    classicData:null,
+    clock:true
   },
 
   onLoad: function() {
     const db = wx.cloud.database()
    
-    db.collection('blink').orderBy('pubdate','esc').limit(1).get({
+    db.collection('blink').orderBy('pubdate','desc').limit(1).get({
       success: res => {
         this.setData({
           classicData: res.data[0]
@@ -64,6 +65,62 @@ Page({
       }
     })
   },
+
+
+    onNext(event){
+      if(this.data.clock){
+        this.setData({
+          clock:false
+        })
+        const db = wx.cloud.database()
+        let type = event.currentTarget.dataset.hi
+        let index = this.data.classicData.index;
+        console.log(index);
+        
+        db.collection('blink').where({
+          index:type == 'next'? index-1 : index+1
+        }).get({
+          success: res => {
+            console.log('[数据库] [查询记录] 成功: ',res)
+            
+            this.setData({
+              classicData: res.data[0],
+              clock:true
+            })
+          
+          },
+          fail: err => {
+            wx.showToast({
+              icon: 'none',
+              title: '查询记录失败'
+            })
+            console.error('[数据库] [查询记录] 失败：', err)
+          }
+        })
+
+      }
+      
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   onGetUserInfo: function(e) {
     if (!this.logged && e.detail.userInfo) {
