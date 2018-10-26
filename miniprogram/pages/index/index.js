@@ -11,7 +11,7 @@ Page({
     takeSession: false,
     requestResult: '',
     classicData:null,
-    clock:true
+    clock:true,
   },
 
   onLoad: function() {
@@ -22,7 +22,9 @@ Page({
         this.setData({
           classicData: res.data[0]
         })
+        console.log('[数据库] [查询记录] 成功: ',this.data.classicData.pubdate)
         console.log('[数据库] [查询记录] 成功: ',res)
+      
       },
       fail: err => {
         wx.showToast({

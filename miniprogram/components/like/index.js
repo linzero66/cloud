@@ -14,7 +14,10 @@ Component({
       },
       weeklyID:{
         type:String,
-      }
+      },
+      dataBaseName:{
+        type:String,
+      },
   },
 
   /**
@@ -68,10 +71,11 @@ Component({
         let like = this.properties.like;
         let count = this.properties.count;
         let weeklyID = this.properties.weeklyID
+        let dataBaseName = this.properties.dataBaseName
         let vm = this;
         const db = wx.cloud.database()
         const _ = db.command
-        db.collection('blink').doc(weeklyID).update({
+        db.collection(dataBaseName).doc(weeklyID).update({
               data: {
                 like_status: !like,
                 fav_nums:like?_.inc(-1):_.inc(1)
