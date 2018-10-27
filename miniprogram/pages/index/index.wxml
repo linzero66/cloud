@@ -41,15 +41,26 @@
   </view> -->
 
 <!-- </view> -->
+
+<view class="container">
+<view class="header">
 <z-epsoide index="{{classicData.index}}" pubDate="{{classicData.pubdate}}" />
-<z-like dataBaseName="blink"  like="{{classicData.like_status}}"  count="{{classicData.fav_nums}}"   weeklyID="{{classicData._id}}"   />
+<z-like dataBaseName="blink"  like="{{classicData.like_status}}"  count="{{classicData.fav_nums}}" 
+  weeklyID="{{classicData._id}}"   />
+</view>
+
 <z-movie content="{{classicData.content}}"  image="{{classicData.image}}"    />
-<view class="container-nav">
+
+<z-navi class="navi" title="{{classicData.title}}" bind:right="onTurn" bind:left="onTurn" 
+       firstBoolean="{{first}}" lastBoolean="{{latest}}" />
+
+</view>
+<!-- <view class="container-nav">
     <button size="mini" data-hi="last"  bindtap="onNext">上一个
     </button>
     <text class="title">{{classicData.title}}</text>
     <button size="mini"  data-hi="next"  bindtap="onNext">下一个
     </button>
-</view>
+</view> -->
 <!-- <image src="{{classicData.image}}" /> -->
 

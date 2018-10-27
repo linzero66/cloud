@@ -17,10 +17,11 @@ Component({
       type: String,
       observer: function (newValue, oldValue, changedPath) {
         let date = new Date(newValue)
-        let month = date.getMonth() <10? '0'+date.getMonth():date.getMonth()
+        let month = date.getMonth()
+        let months = this.data.months
           this.setData({
             year: date.getFullYear(),
-            month: month
+            month: months[month]
           })
       },
     }
@@ -30,6 +31,8 @@ Component({
    * 组件的初始数据
    */
   data: {
+    months:['一月','二月','三月','四月','五月','六月','七月','八月','九月',
+         '十月','十一月','十二月'],
     month: '',
     year: '',
     _index: ''

@@ -18,5 +18,7 @@
     bottom: 60rpx;
 }
 .content{
+    padding-top: 20rpx;
     max-width: 550rpx;
+    font-size: 40rpx;
 }

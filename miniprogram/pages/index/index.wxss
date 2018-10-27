@@ -1,7 +1,7 @@
 /**index.wxss**/
 
 page {
-  background: #f6f6f6;
+  background: #fff;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -143,8 +143,33 @@ page {
   padding: 140rpx 40rpx 40rpx 40rpx;
 }
 
+.container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
+
 .title {
-  font-size: 30rpx;
+  font-size: 30px;
 
 }
 
+.header{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10rpx;
+  border-top: 1rpx solid #f5f5f5;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.navi{
+  position: absolute;
+  bottom: 80rpx;
+}

@@ -12,6 +12,9 @@ Page({
     requestResult: '',
     classicData:null,
     clock:true,
+    first:false,
+    latest:true,
+    newest: '',
   },
 
   onLoad: function() {
@@ -20,7 +23,8 @@ Page({
     db.collection('blink').orderBy('pubdate','desc').limit(1).get({
       success: res => {
         this.setData({
-          classicData: res.data[0]
+          classicData: res.data[0],
+          newest: res.data[0].index
         })
         console.log('[数据库] [查询记录] 成功: ',this.data.classicData.pubdate)
         console.log('[数据库] [查询记录] 成功: ',res)
@@ -69,25 +73,30 @@ Page({
   },
 
 
-    onNext(event){
+  onTurn(event){
       if(this.data.clock){
         this.setData({
           clock:false
         })
         const db = wx.cloud.database()
-        let type = event.currentTarget.dataset.hi
+        console.log(event);
+        
+        let type = event.detail.behavior;
         let index = this.data.classicData.index;
-        console.log(index);
+        let newest = this.data.newest;
+        console.log(newest);
         
         db.collection('blink').where({
-          index:type == 'next'? index-1 : index+1
+          index:type == 'next'? index+1 : index-1
         }).get({
           success: res => {
             console.log('[数据库] [查询记录] 成功: ',res)
             
             this.setData({
               classicData: res.data[0],
-              clock:true
+              clock:true,
+              first:res.data[0].index == 4?true:false,
+              latest:res.data[0].index == newest?true:false
             })
           
           },
