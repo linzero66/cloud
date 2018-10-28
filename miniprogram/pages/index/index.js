@@ -1,5 +1,7 @@
 //index.js
-import {ClassicModel} from '../../models/classic.js'
+import {
+  ClassicModel
+} from '../../models/classic.js'
 let classic = new ClassicModel()
 const app = getApp()
 
@@ -10,43 +12,22 @@ Page({
     logged: false,
     takeSession: false,
     requestResult: '',
-    classicData:null,
-    clock:true,
-    first:false,
-    latest:true,
-    newest: '',
+    classicData: null,
+    clock: true,
+    first: false,
+    latest: true,
   },
 
-  onLoad: function() {
-    const db = wx.cloud.database()
-   
-    db.collection('blink').orderBy('pubdate','desc').limit(1).get({
-      success: res => {
+  onLoad: function () {
+    
+
+
+    classic.getLatest((res)=>{
+        console.log(res);
         this.setData({
-          classicData: res.data[0],
-          newest: res.data[0].index
+          classicData: res.data[0]
         })
-        console.log('[数据库] [查询记录] 成功: ',this.data.classicData.pubdate)
-        console.log('[数据库] [查询记录] 成功: ',res)
-      
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '查询记录失败'
-        })
-        console.error('[数据库] [查询记录] 失败：', err)
-      }
     })
-
-
-    // classic.getLatest((res)=>{
-    //     console.log(res);
-    //     //数据更新(数据添加和更新)
-    //     this.setData({
-    //       classic:res
-    //     })
-    // })
     if (!wx.cloud) {
       wx.redirectTo({
         url: '../chooseLib/chooseLib',
@@ -73,45 +54,27 @@ Page({
   },
 
 
-  onTurn(event){
-      if(this.data.clock){
+  onTurn(event) {
+    if (this.data.clock) {
+      this.setData({
+        clock: false
+      })
+      console.log(event);
+      let type = event.detail.behavior;
+      let index = this.data.classicData.index;
+      let newest = this.data.newest;
+      classic.getTurn(index,type,(res)=>{
         this.setData({
-          clock:false
+          classicData: res.data[0],
+          clock: true,
+          first: classic.isFirst(res.data[0].index),
+          latest: classic.isLatest(res.data[0].index)
         })
-        const db = wx.cloud.database()
-        console.log(event);
-        
-        let type = event.detail.behavior;
-        let index = this.data.classicData.index;
-        let newest = this.data.newest;
-        console.log(newest);
-        
-        db.collection('blink').where({
-          index:type == 'next'? index+1 : index-1
-        }).get({
-          success: res => {
-            console.log('[数据库] [查询记录] 成功: ',res)
-            
-            this.setData({
-              classicData: res.data[0],
-              clock:true,
-              first:res.data[0].index == 4?true:false,
-              latest:res.data[0].index == newest?true:false
-            })
-          
-          },
-          fail: err => {
-            wx.showToast({
-              icon: 'none',
-              title: '查询记录失败'
-            })
-            console.error('[数据库] [查询记录] 失败：', err)
-          }
-        })
+      })
 
-      }
-      
-    },
+    }
+
+  },
 
 
 
@@ -133,7 +96,7 @@ Page({
 
 
 
-  onGetUserInfo: function(e) {
+  onGetUserInfo: function (e) {
     if (!this.logged && e.detail.userInfo) {
       this.setData({
         logged: true,
@@ -143,7 +106,7 @@ Page({
     }
   },
 
-  onGetOpenid: function() {
+  onGetOpenid: function () {
     // 调用云函数
     wx.cloud.callFunction({
       name: 'login',
@@ -179,7 +142,7 @@ Page({
         console.log(res)
         const filePath = res.tempFilePaths[0]
         console.log(filePath.split('.'))
-        let imageName = filePath.split('.')[filePath.split('.').length -2]
+        let imageName = filePath.split('.')[filePath.split('.').length - 2]
         // 上传图片
         const cloudPath = imageName + filePath.match(/\.[^.]+?$/)[0]
         wx.cloud.uploadFile({
@@ -191,7 +154,7 @@ Page({
             app.globalData.fileID = res.fileID
             app.globalData.cloudPath = cloudPath
             app.globalData.imagePath = filePath
-            
+
             wx.navigateTo({
               url: '../storageConsole/storageConsole'
             })
@@ -215,7 +178,7 @@ Page({
     })
   },
   //添加数据库记录
-  addData:function(){
+  addData: function () {
     const db = wx.cloud.database()
     db.collection('blink').add({
       data: {
