@@ -7,26 +7,30 @@ const app = getApp()
 
 Page({
   data: {
-    avatarUrl: './user-unlogin.png',
-    userInfo: {},
-    logged: false,
-    takeSession: false,
-    requestResult: '',
+    // avatarUrl: './user-unlogin.png',
+    // userInfo: {},
+    // logged: false,
+    // takeSession: false,
+    // requestResult: '',
     classicData: null,
     clock: true,
     first: false,
     latest: true,
+    like: false,
+    count: 0
   },
 
   onLoad: function () {
-    
 
 
-    classic.getLatest((res)=>{
-        console.log(res);
-        this.setData({
-          classicData: res.data[0]
-        })
+
+    classic.getLatest((res) => {
+      console.log(res);
+      this.setData({
+        classicData: res.data[0],
+        like: res.data[0].like_status,
+        count: res.data[0].fav_nums
+      })
     })
     if (!wx.cloud) {
       wx.redirectTo({
@@ -53,7 +57,6 @@ Page({
     })
   },
 
-
   onTurn(event) {
     if (this.data.clock) {
       this.setData({
@@ -63,7 +66,8 @@ Page({
       let type = event.detail.behavior;
       let index = this.data.classicData.index;
       let newest = this.data.newest;
-      classic.getTurn(index,type,(res)=>{
+      classic.getTurn(index, type, (res) => {
+        this._getLikeStatus(index, type)
         this.setData({
           classicData: res.data[0],
           clock: true,
@@ -73,7 +77,14 @@ Page({
       })
 
     }
-
+  },
+  _getLikeStatus(index, type) {
+    classic.getLikeOrUnlike(index, type, (res) => {
+      this.setData({
+        like: res.data[0].like_status,
+        count: res.data[0].fav_nums
+      })
+    })
   },
 
 

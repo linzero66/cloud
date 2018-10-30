@@ -45,7 +45,7 @@
 <view class="container">
 <view class="header">
 <z-epsoide index="{{classicData.index}}" pubDate="{{classicData.pubdate}}" />
-<z-like dataBaseName="blink"  like="{{classicData.like_status}}"  count="{{classicData.fav_nums}}" 
+<z-like dataBaseName="blink"  like="{{like}}"  count="{{count}}" 
   weeklyID="{{classicData._id}}"   />
 </view>
 

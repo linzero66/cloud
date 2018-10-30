@@ -30,21 +30,30 @@ class ClassicModel extends HTTP {
     }
     getTurn(index, type, sCallback) {
         const db = wx.cloud.database()
-        db.collection('blink').where({
-            index: type == 'next' ? index + 1 : index - 1
-        }).get({
-            success: res => {
-                console.log('[数据库] [查询记录] 成功: ', res)
-                sCallback(res)
-            },
-            fail: err => {
-                wx.showToast({
-                    icon: 'none',
-                    title: '查询记录失败'
-                })
-                console.error('[数据库] [查询记录] 失败：', err)
-            }
-        })
+        let classicIndex = type == 'next' ? this._getIndex(index + 1) : this._getIndex(index - 1);
+        let classicInfo = wx.getStorageSync(classicIndex);
+        if (!classicInfo) {
+            db.collection('blink').where({
+                index: type == 'next' ? index + 1 : index - 1
+            }).get({
+                success: res => {
+                    wx.setStorageSync(classicIndex,res)
+                    console.log('[数据库] [查询记录] 成功: ', res)
+                    sCallback(res)
+                },
+                fail: err => {
+                    wx.showToast({
+                        icon: 'none',
+                        title: '查询记录失败'
+                    })
+                    console.error('[数据库] [查询记录] 失败：', err)
+                }
+            })
+        }
+        else{
+            sCallback(classicInfo)
+        }
+
     }
     isFirst(index) {
         return index == 4 ? true : false
@@ -57,6 +66,32 @@ class ClassicModel extends HTTP {
     }
     _getLatestIndex(index) {
         return wx.getStorageSync('latest')
+    }
+    _getIndex(index) {
+        let numIndex = "classis-" + index;
+        return numIndex;
+    }
+    getLikeOrUnlike(index,type,sCallback){
+        const db = wx.cloud.database()
+        db.collection('blink').where({
+            index: type == 'next' ? index + 1 : index - 1
+        }).field({
+            like_status: true,
+            fav_nums: true
+          })
+         .get({
+            success: res => {
+                sCallback(res)
+                console.log('[数据库] [查询记录] 成功: ', res)
+            },
+            fail: err => {
+                wx.showToast({
+                    icon: 'none',
+                    title: '查询记录失败'
+                })
+                console.error('[数据库] [查询记录] 失败：', err)
+            }
+        })
     }
 
 }
