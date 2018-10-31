@@ -45,11 +45,13 @@
 <view class="container">
 <view class="header">
 <z-epsoide index="{{classicData.index}}" pubDate="{{classicData.pubdate}}" />
-<z-like dataBaseName="blink"  like="{{like}}"  count="{{count}}" 
+<z-like  dataBaseName="blink"  like="{{like}}"  count="{{count}}" 
   weeklyID="{{classicData._id}}"   />
 </view>
 
-<z-movie content="{{classicData.content}}"  image="{{classicData.image}}"    />
+<z-movie hidden="{{classicData.type != 100}}" content="{{classicData.content}}"  image="{{classicData.image}}"    />
+<z-music hidden="{{classicData.type != 200}}" content="{{classicData.content}}"  image="{{classicData.image}}"    />
+<z-essay hidden="{{classicData.type != 300}}" content="{{classicData.content}}"  image="{{classicData.image}}"    />
 
 <z-navi class="navi" title="{{classicData.title}}" bind:right="onTurn" bind:left="onTurn" 
        firstBoolean="{{first}}" lastBoolean="{{latest}}" />

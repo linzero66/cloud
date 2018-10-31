@@ -15,7 +15,8 @@ Component({
    * 组件的初始数据
    */
   data: {
-
+    playSrc:'./images/player@playing.png',
+    waitSrc:'./images/player@waitting.png',
   },
 
   /**

@@ -1,4 +1,3 @@
-/* components/classic/music/index.wxss */
 .classic-container{
     display: flex;
     flex-direction: column;
