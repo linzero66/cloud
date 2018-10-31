@@ -56,7 +56,7 @@ class ClassicModel extends HTTP {
 
     }
     isFirst(index) {
-        return index == 4 ? true : false
+        return index == 3 ? true : false
     }
     isLatest(index) {
         return index == this._getLatestIndex(index) ? true : false

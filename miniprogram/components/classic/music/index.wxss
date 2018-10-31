@@ -6,16 +6,25 @@
 }
 
 .classic-image{
-    width: 750rpx;
-    height: 500rpx;
+    width: 400rpx;
+    height: 400rpx;
+    border-radius: 50%;
+    margin-top: 60rpx
+}
+
+.playing{
+    width: 120rpx;
+    height: 120rpx;
+    position: relative;
+    bottom: 270rpx;
 }
 
 .tag{
-    width: 46rpx;
-    height: 146rpx;
+    width: 44rpx;
+    height: 127rpx;
     position: relative;
     right: 300rpx;
-    bottom: 60rpx;
+    bottom: 160rpx;
 }
 .content{
     padding-top: 20rpx;
