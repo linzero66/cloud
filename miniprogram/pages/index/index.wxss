@@ -164,9 +164,16 @@ page {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 10rpx;
+  padding: 10rpx ;
   border-top: 1rpx solid #f5f5f5;
   border-bottom: 1rpx solid #f5f5f5;
+}
+
+.episode{
+  margin-left: 20rpx
+}
+.like{
+  margin-right: 20rpx
 }
 
 .navi{

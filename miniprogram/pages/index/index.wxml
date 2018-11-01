@@ -44,14 +44,14 @@
 
 <view class="container">
 <view class="header">
-<z-episode index="{{classicData.index}}" pubDate="{{classicData.pubdate}}" />
-<z-like  dataBaseName="blink"  like="{{like}}"  count="{{count}}" 
+<z-episode class="episode" index="{{classicData.index}}" pubDate="{{classicData.pubdate}}" />
+<z-like class="like" dataBaseName="blink"  like="{{like}}"  count="{{count}}" 
   weeklyID="{{classicData._id}}"   />
-</view>
+</view> 
 
-<z-movie hidden="{{classicData.type != 100}}" content="{{classicData.content}}"  image="{{classicData.image}}"    />
-<z-music hidden="{{classicData.type != 200}}" url="{{classicData.url}}"  content="{{classicData.content}}"  image="{{classicData.image}}"    />
-<z-essay hidden="{{classicData.type != 300}}" content="{{classicData.content}}"  image="{{classicData.image}}"    />
+<z-movie wx:if="{{classicData.type == 100}}" hidden="{{classicData.type != 100}}" content="{{classicData.content}}"  image="{{classicData.image}}"    />
+<z-music wx:if="{{classicData.type == 200}}" hidden="{{classicData.type != 200}}" url="{{classicData.url}}"  content="{{classicData.content}}"  image="{{classicData.image}}"    />
+<z-essay wx:if="{{classicData.type == 300}}" hidden="{{classicData.type != 300}}" content="{{classicData.content}}"  image="{{classicData.image}}"    />
 
 <z-navi class="navi" title="{{classicData.title}}" bind:right="onTurn" bind:left="onTurn" 
        firstBoolean="{{first}}" lastBoolean="{{latest}}" />

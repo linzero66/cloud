@@ -19,6 +19,30 @@
     bottom: 270rpx;
 }
 
+.rotating{
+    -webkit-animation: spin 1s linear 10s 5 alternate;
+    animation: spin 10s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
 .tag{
     width: 44rpx;
     height: 127rpx;

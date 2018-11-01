@@ -23,7 +23,6 @@ Page({
   onLoad: function () {
 
 
-
     classic.getLatest((res) => {
       console.log(res);
       this.setData({
@@ -86,16 +85,6 @@ Page({
       })
     })
   },
-
-
-
-
-
-
-
-
-
-
 
 
 
