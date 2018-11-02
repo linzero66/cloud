@@ -42,6 +42,9 @@
     }
 }
 
+.lucency{
+    opacity: 50%;
+}
 
 .tag{
     width: 44rpx;
